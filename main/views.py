@@ -49,7 +49,18 @@ def add_snippet_page(request):
             }
         )
     return render(request, 'pages/add_snippet.html', context)
-
+def search_snippet_page(request):
+    if request.method == 'POST':
+        snippet_id = request.POST.get('snippet_id')
+        if snippet_id and snippet_id.isdigit():
+            try:
+                snippet = Snippet.objects.get(id=int(snippet_id))
+                return redirect('view_snippet', id=snippet.id)
+            except Snippet.DoesNotExist:
+                messages.add_message(request, messages.ERROR, f"Сниппет с ID {snippet_id} не найден.")
+        else:
+            messages.add_message(request, messages.ERROR, "Введите корректный ID.")
+    return redirect('index')
 
 def view_snippet_page(request, id):
     context = get_base_context(request, 'Просмотр сниппета')

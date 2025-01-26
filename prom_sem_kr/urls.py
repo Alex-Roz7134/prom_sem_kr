@@ -19,6 +19,10 @@ from django.urls import path
 from main import views
 
 urlpatterns = [
+
+path('', views.index_page, name='index'),
+    path('snippets/search/', views.search_snippet_page, name='search_snippet'),  # Новый маршрут
+    path('snippets/<int:id>/', views.view_snippet_page, name='view_snippet'),
     path('admin/', admin.site.urls),
     path('', views.index_page, name='index'),
     path('snippets/add', views.add_snippet_page, name='add_snippet'),
