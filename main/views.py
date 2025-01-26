@@ -29,9 +29,10 @@ def add_snippet_page(request):
         addform = AddSnippetForm(request.POST)
         if addform.is_valid():
             record = Snippet(
-                name=addform.data['name'],
-                code=addform.data['code'],
+                name=addform.cleaned_data['name'],
+                code=addform.cleaned_data['code'],
                 creation_date=datetime.datetime.now(),
+                user=request.user if request.user.is_authenticated else None,  # Сохраняем пользователя, если он авторизован
             )
             record.save()
             id = record.id
@@ -41,9 +42,10 @@ def add_snippet_page(request):
             messages.add_message(request, messages.ERROR, "Некорректные данные в форме")
             return redirect('add_snippet')
     else:
+        # Указываем текущего пользователя в поле `user`, если он авторизован
         context['addform'] = AddSnippetForm(
             initial={
-                'user': 'AnonymousUser',
+                'user': request.user if request.user.is_authenticated else 'AnonymousUser',
             }
         )
     return render(request, 'pages/add_snippet.html', context)
@@ -55,7 +57,7 @@ def view_snippet_page(request, id):
         record = Snippet.objects.get(id=id)
         context['addform'] = AddSnippetForm(
             initial={
-                'user': 'AnonymousUser',
+                'user': record.user.username if record.user else 'AnonymousUser',  # Показываем автора
                 'name': record.name,
                 'code': record.code,
             }
