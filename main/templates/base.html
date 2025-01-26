@@ -7,7 +7,6 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="shortcut icon" type="image/png" href="{% static 'images/logo.png' %}"/>
-        <link rel="shortcut icon" type="image/png" href="{% static 'images/logo.png' %}"/>
         <title>PythonBin</title>
 
         {% block base_css %}
@@ -16,7 +15,8 @@
         {% endblock %}
 
         {% block extra_css %}
-
+        <!-- Подключаем highlight.js стили (без CSS файлов, через CDN) -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/default.min.css">
         {% endblock %}
     </head>
 
@@ -41,7 +41,6 @@
                 {% endblock %}
 
                 {% block content %}
-
                 {% endblock %}
             </div>
         </main>
@@ -55,6 +54,16 @@
         <script src="{% static 'js/jquery-3.3.1.slim.min.js' %}"></script>
         <script src="{% static 'js/popper.min.js' %}"></script>
         <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+        <!-- Подключаем highlight.js скрипт -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+
+        <script>
+            // Инициализируем подсветку синтаксиса на всех блоках с классом "python"
+            document.addEventListener('DOMContentLoaded', function () {
+                hljs.highlightAll();
+            });
+        </script>
     </body>
 
 </html>
