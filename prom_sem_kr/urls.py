@@ -21,7 +21,8 @@ from main import views
 urlpatterns = [
 
 path('', views.index_page, name='index'),
-    path('snippets/search/', views.search_snippet_page, name='search_snippet'),  # Новый маршрут
+    path('snippets/search/', views.search_snippet_page, name='search_snippet'),
+    path('my-snippets/', views.my_snippets_page, name='my_snippets'),
     path('snippets/<int:id>/', views.view_snippet_page, name='view_snippet'),
     path('admin/', admin.site.urls),
     path('', views.index_page, name='index'),

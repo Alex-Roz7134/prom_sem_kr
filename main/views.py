@@ -49,6 +49,12 @@ def add_snippet_page(request):
             }
         )
     return render(request, 'pages/add_snippet.html', context)
+def my_snippets_page(request):
+    context = {
+        'pagename': 'Мои сниппеты',
+        'snippets': Snippet.objects.filter(user=request.user),  # Фильтруем сниппеты по текущему пользователю
+    }
+    return render(request, 'pages/my_snippets.html', context)
 def search_snippet_page(request):
     if request.method == 'POST':
         snippet_id = request.POST.get('snippet_id')
@@ -102,4 +108,8 @@ def logout_page(request):
 
 
 def my_snippets_page(request):
-    raise NotImplementedError
+    context = {
+        'pagename': 'Мои сниппеты',
+        'snippets': Snippet.objects.filter(user=request.user),
+    }
+    return render(request, 'pages/my_snippets.html', context)

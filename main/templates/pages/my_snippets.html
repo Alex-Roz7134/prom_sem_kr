@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block pagename %}
+<div class="row">
+    <div class="col text-center">
+        <h1>{{ pagename }}</h1>
+        <hr>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="row mt-3">
+    <div class="col">
+        <h4>Ваши сниппеты:</h4>
+        {% if snippets %}
+        <ul class="list-group">
+            {% for snippet in snippets %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>{{ snippet.name }}</span>
+                <a href="{% url 'view_snippet' snippet.id %}" class="btn btn-primary btn-sm">Посмотреть</a>
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p>У вас пока нет загруженных сниппетов.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
