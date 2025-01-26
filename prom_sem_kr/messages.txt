@@ -1,0 +1,17 @@
+1.
+Это называется механизм уведомлений (Messages Framework) в Django.
+2.
+Он позволяет в Django отправлять и показывать пользователям краткие сообщения (так называемые «flash-сообщения») между запросами.
+3.
+https://docs.djangoproject.com/en/4.2/ref/contrib/messages/
+4.
+from django.contrib import messages
+messages.add_message(request, messages.SUCCESS, "Операция прошла успешно!")
+5.
+{% if messages %}
+  <ul>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
